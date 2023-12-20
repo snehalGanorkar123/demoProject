@@ -1,0 +1,46 @@
+<!-- applicant-list.component.html -->
+<app-navbarcompany></app-navbarcompany>
+
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header text-white text-center fs-3" style="background-color: #e3c500;">
+      Applicant List
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered table-hover table-responsive-md">
+        <thead style="background-color: #6c757d;" class="text-white">
+          <tr>
+            <th scope="col">JobSeekerId</th>
+            <th scope="col">JobId</th>
+            <th scope="col">Resume</th>
+            <th scope="col">Action</th>
+            <th scope="col">Interview Date</th>
+            <th scope="col">Interview Time</th>
+          </tr>
+        </thead>
+
+        <tbody *ngFor="let jb of JobData">
+          <tr>
+            <td>{{ jb.jobSeekerId }}</td>
+            <td>{{ jb.jobId }}</td>
+            <td>{{ jb.resume }}</td>
+            <td>
+              <ng-container *ngIf="!isInterviewScheduled(jb.jobSeekerId); else scheduledButton">
+                <button type="button" style="background-color: darkturquoise;" (click)="scheduleInterview(jb)">
+                  Schedule Interview
+                </button>
+              </ng-container>
+              <ng-template #scheduledButton>
+                <button type="button" style="background-color: lightgrey;" disabled>
+                  Scheduled
+                </button>
+              </ng-template>
+            </td>
+            <td>{{ jb.interviewDate | formatDate }}</td>
+            <td>{{ jb.interviewTime || 'N/A' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
